@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
         - name: cont1
-          image: nginx:latest #shudhoo/myapp:IMAGE_TAG
+          image: shudhodhan/mycapstone:REPLACE_TAG
           ports:
             - containerPort: 80
