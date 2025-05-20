@@ -1,0 +1,6 @@
+- name: "Enable Docker Service"
+  become: true
+  systemd:
+    name: docker
+    enabled: yes
+    state: started

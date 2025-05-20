@@ -1,0 +1,2 @@
+installCRIDockerd_url: https://raw.githubusercontent.com/lerndevops/labs/master/scripts/installCRIDockerd.sh
+installK8S_url: https://raw.githubusercontent.com/lerndevops/labs/master/scripts/installK8S.sh

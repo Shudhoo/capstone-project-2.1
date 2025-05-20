@@ -1,0 +1,66 @@
+- name: Ensure Docker is running
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Download installCRIDockerd.sh script
+  get_url:
+    url: https://raw.githubusercontent.com/lerndevops/labs/master/scripts/installCRIDockerd.sh
+    dest: /tmp/installCRIDockerd.sh
+    mode: '0755'
+
+- name: Run installCRIDockerd.sh script
+  command: bash /tmp/installCRIDockerd.sh
+
+- name: Restart cri-docker service
+  systemd:
+    name: cri-docker.service
+    state: restarted
+    enabled: yes
+
+- name: Ensure /etc/apt/keyrings directory exists
+  file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+
+- name: Download Kubernetes GPG key and convert to gpg format
+  ansible.builtin.shell: |
+    curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | \
+    gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  args:
+    creates: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+- name: Add Kubernetes APT repository
+  copy:
+    dest: /etc/apt/sources.list.d/kubernetes.list
+    content: |
+      deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /
+
+- name: Update APT package index
+  apt:
+    update_cache: yes
+
+- name: Install kubelet, kubeadm, and kubectl
+  apt:
+    name:
+      - kubelet
+      - kubeadm
+      - kubectl
+    state: present
+  notify: Enable and start kubelet service  # This must be outside the 'apt' block, but inside the task
+
+# - name: Hold kubelet, kubeadm, and kubectl versions
+#   apt:
+#     name:
+#       - kubelet
+#       - kubeadm
+#       - kubectl
+#     state: hold
+
+
+#kubeadm join 11.0.1.169:6443 --token wvv81d.tgjizelesapwtibf \
+ #       --discovery-token-ca-cert-hash sha256:8cb38289fe6b9ca2bde8cf114d67b3a5149950268f82a278c5a6febe860714a3 --cri-socket unix:///var/run/cri-dockerd.sock
+
+  #      capstone2

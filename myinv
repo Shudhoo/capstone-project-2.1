@@ -1,0 +1,9 @@
+[docker-nodes]
+<ip-add>
+<ip-add>
+<ip-add>
+
+[k8s-nodes]
+<ip-add>
+<ip-add>
+<ip-add>

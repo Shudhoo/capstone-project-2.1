@@ -1,0 +1,14 @@
+#This is a Plybook to configure softwares like Kubernetes, Docker, Java, Jenkins etc
+
+- name: "This is Playbook too install Jenkins & Java on Local-Host"
+  hosts: localhost
+  roles:
+    - local
+- name: "This is Playbook too install Docker on K8s-master & k8s-slaves "
+  hosts: docker-nodes
+  roles:
+    - docker
+- name: "This is Playbook too install tasks on k8s-Slaves"
+  hosts: k8s-nodes
+  roles:
+    - k8s

@@ -1,0 +1,9 @@
+
+# This are the variables for JAVA Installations
+java_package: openjdk-21-jre
+java_pkg_state: present
+
+apt_key: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+apt_repository:  deb https://pkg.jenkins.io/debian-stable binary/
+jenkins_pkg_state: present
+java_home: /usr/lib/jvm/java-21-openjdk-jre-amd64

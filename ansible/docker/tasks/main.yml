@@ -1,0 +1,7 @@
+- name: "This is task to Install docker on k8s-master & k8s-slave"
+  become: true
+  apt:
+    update_cache: yes
+    name: "{{ pkg_name }}"
+    state: present
+  notify: Enable Docker Service

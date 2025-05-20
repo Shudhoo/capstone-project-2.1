@@ -1,0 +1,48 @@
+
+- name: "This is task to dependencies are install to configure Jenkins"
+  become: true
+  apt:
+    update_cache: yes
+    name: 
+      - curl
+      - apt-transport-https
+      - gnupg
+      - ca-certificates
+      - wget
+    state: present
+- name: "Adding Jenkins GPG Key"
+  apt_key:
+    url: "{{ apt_key }}"
+    state: present
+- name: Adding Jenkins APT Repository
+  apt_repository:
+    repo: "{{ apt_repository }}"
+    state: present
+
+- name: "This is task to download java in your Local Machine"
+  become: true
+  apt:
+    update_cache: yes
+    name: "{{ java_package }}"
+    state: "{{ java_pkg_state }}"
+
+- name: "This is task to set JAVA_HOME"
+  lineinfile:
+    path: /etc/default/jenkins
+    regexp: '^JAVA_HOME='
+    line: 'JAVA_HOME={{ java_home }}'
+    create: yes
+  notify: Restart Jenkins
+    
+- name: "This task is to install jenkins"
+  apt:
+    update_cache: yes
+    name: jenkins
+    state: "{{ jenkins_pkg_state }}"
+  notify: Restart Jenkins
+
+    
+
+       
+
+    
