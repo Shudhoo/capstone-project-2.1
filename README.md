@@ -3,6 +3,9 @@
 
 ### A Kubernetes cluster then deploys the image with 2 replicas using a Node-Port service on port 30008. Configuration management tools ensure the required software (Docker, Kubernetes, Jenkins, Java) is installed on specified nodes, while Terraform is used to provision the infrastructure on AWS.
 
+### Diagram -
+![image alt](https://github.com/Shudhoo/capstone-project-2.1/blob/44d72c8a9ec2bbbb3ae02315733270291d8d6659/Flow-Diagramm.jpg)
+
 * ➢ It simulates a full DevOps lifecycle, including version control, continuous integration, and automated deployments. 
 * ➢ It involves Docker containerization, custom image building, and deployment to a Kubernetes cluster with proper networking (Node-Port). 
 * ➢ The pipeline includes GitHub integration and Jenkins automation. 
